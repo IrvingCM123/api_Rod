@@ -135,7 +135,7 @@ export class AuthService {
     }
 
     // El token generado o que se generará lleva consigo, o se le asigna, el correo y el rol del usuario
-    const payload = { correo: cuentaExistente.cuenta_Correo, rol: cuentaExistente.cuenta_Rol, usuario: cuentaExistente.cuenta_Nombre + ' ' + cuentaExistente.cuenta_Apellido };
+    const payload = { correo: cuentaExistente.cuenta_Correo, role: cuentaExistente.cuenta_Rol, usuario: cuentaExistente.cuenta_Nombre + ' ' + cuentaExistente.cuenta_Apellido };
 
     // Generamos el token de acceso al sistema
     const access_Token = await this.jwtService.signAsync(payload);
