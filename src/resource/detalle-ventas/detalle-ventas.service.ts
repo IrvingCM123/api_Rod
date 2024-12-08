@@ -6,6 +6,8 @@ import { UpdateDetalleVentaDto } from './dto/update-detalle-venta.dto';
 
 import { Exito_Operaciones, Errores_Operaciones } from 'src/common/helpers/operaciones.helpers';
 
+import { ProductosService } from '../productos/productos.service';
+
 // Bibliotecas para utlilizar los repository
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -21,10 +23,12 @@ import { respuestaInterface } from 'src/common/interfaces/respuesta.interface';
 export class DetalleVentasService {
 
   constructor(
+    private _productoSerive: ProductosService,
     @InjectRepository(DetalleVenta)
     private detalleVentaRepository: Repository<DetalleVenta>,
     @InjectRepository(ProductoVenta)
     private productoVentaRepository: Repository<ProductoVenta>,
+    
   ) { }
 
   async create(createDetalleVentaDto: CreateDetalleVentaDto) {
@@ -38,6 +42,7 @@ export class DetalleVentasService {
 
       try {
         // Intentar realizar el registro del producto en la base de datos
+        await this._productoSerive.actualizarInventario(producto.productoVenta_ProductoID, producto.productoVenta_CantidadProducto)
         const registro_almacenado = await this.productoVentaRepository.save(producto);
 
         // Almacenar el objeto registrado en la base de datos para adjuntarlo al detalle de venta

@@ -82,8 +82,8 @@ export class ProductosService {
       }
 
       return respuesta;
-    } 
-    
+    }
+
     const respuesta: respuestaInterface = {
       httpStatusCode: 201,
       mensajeRespuesta: producto_Existente
@@ -97,6 +97,44 @@ export class ProductosService {
       producto_Nombre: nombre
     })
   };
+
+  async actualizarInventario(id: number, cantidadRestar: number) {
+    try {
+
+      const producto_Existente = await this.findOne(id);
+
+      if (!producto_Existente) {
+
+        const respuesta: respuestaInterface = {
+          httpStatusCode: 500,
+          mensajeRespuesta: Errores_Operaciones.ERROR_INEXISTENTE
+        }
+
+        return respuesta;
+      }
+
+      producto_Existente.mensajeRespuesta.producto_Cantidad = producto_Existente.mensajeRespuesta.producto_Cantidad  - cantidadRestar;
+
+      await this.productoRepository.update(id, producto_Existente.mensajeRespuesta);
+
+      const respuesta: respuestaInterface = {
+        httpStatusCode: 201,
+        mensajeRespuesta: Exito_Operaciones.Actualizar
+      };
+
+      return respuesta;
+
+    } catch (error) {
+
+      const respuesta: respuestaInterface = {
+        httpStatusCode: 500,
+        mensajeRespuesta: Errores_Operaciones.ERROR_ACTUALIZAR
+      };
+
+      return respuesta;
+
+    }
+  }
 
   async update(id: number, updateProductoDto: UpdateProductoDto) {
     try {
