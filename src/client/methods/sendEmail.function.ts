@@ -4,7 +4,7 @@ const configService: ConfigService = new ConfigService();
 const nodemailer = require("nodemailer");
 
 // Exporrar la función enviarEmail
-export async function enviar_Email(Destinatario: any, html_template: any, subject: string, Documento: File): Promise<string> {
+export async function enviar_Email(Destinatario: any, html_template: any, subject: string, Documento: any): Promise<string> {
 
     const email_Server = configService.get<string>('NODEMAILER_EMAIL');
     const email_Password = configService.get<string>('NODEMAILER_PASSWORD');
@@ -28,9 +28,9 @@ export async function enviar_Email(Destinatario: any, html_template: any, subjec
             html: html_template,
             attachments: [
                 {
-                  filename: 'Recibo de Compra', // Nombre del archivo PDF
-                  content: Documento,       // El archivo como File o Buffer
-                  contentType: 'application/pdf', // Asegura el tipo MIME correcto
+                  filename:  Documento.originalname || 'archivo.pdf', // Nombre del archivo PDF
+                  content: Documento.buffer,       // El archivo como File o Buffer
+                  contentType: Documento.mimetype, // Asegura el tipo MIME correcto
                 },
               ],
         };

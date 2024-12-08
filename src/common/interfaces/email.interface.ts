@@ -10,6 +10,6 @@ export interface cliente_email {
     Fecha: any;
     Correo: string;
     Cliente: string;
-    Documento: File,
+    Documento: any,
     subject: string;
 }
