@@ -36,7 +36,7 @@ export class VentasService {
       const objetoVenta: CreateDetalleVentaDto = {
         detalleVenta_TotalProductosVendidos: createVentaDto.detalleVenta_TotalProductosVendidos,
         detalleVenta_MontoTotal: createVentaDto.detalleVenta_MontoTotal,
-        detalleVentaCorreoCliente: createVentaDto.detalleVentaNombreCliente,
+        detalleVentaCorreoCliente: createVentaDto.detalleVentaCorreoCliente,
         detalleVentaNombreCliente: createVentaDto.detalleVentaNombreCliente,
         producto_ID: createVentaDto.producto_ID
       }
