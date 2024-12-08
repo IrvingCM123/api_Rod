@@ -6,7 +6,7 @@ export class CreateClienteDto {
 
   @ApiProperty({
     description: 'Nombre del cliente',
-    type: String,
+    type: String, 
     required: true,
     example: 'Juan Pérez',
     maxLength: 50,
